@@ -12,7 +12,7 @@ class Solution(object):
 
         p = [1]*len(s) #存储以s[i]为中心的回文半径
         p[0]=1
-        p[1]=1
+        p[1]=10
         p[2]=2
 
 
