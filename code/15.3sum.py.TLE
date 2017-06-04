@@ -1,0 +1,87 @@
+#coding=utf-8
+# [15] 3Sum
+#
+# https://leetcode.com/problems/3sum
+#
+# Medium (21.49%)
+# Total Accepted:    
+# Total Submissions: 
+# Testcase Example:  '[-1,0,1,2,-1,-4]'
+#
+# Given an array S of n integers, are there elements a, b, c in S such that a +
+# b + c = 0? Find all unique triplets in the array which gives the sum of
+# zero.
+# 
+# Note: The solution set must not contain duplicate triplets.
+# 
+# 
+# For example, given array S = [-1, 0, 1, 2, -1, -4],
+# S.sort() ==>> [-4, -1, -1, 0, 1, 2]
+# A solution set is:
+# [
+# ⁠ [-1, 0, 1],
+# ⁠ [-1, -1, 2]
+# ]
+# 
+#
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+
+        if(len(nums)<=2):
+            return []
+        if(len(nums)==3):
+            if(sum(nums)==0):
+                return [nums]
+            return []
+
+        res = []
+        first = 0
+        second = 1
+        third = len(nums)-1
+        third_boundry = len(nums)-1
+        previous_first = 0
+        previous_second = 0
+        previous_third = 0
+        while(first<len(nums)-2):
+            third_boundry = len(nums)-1
+            if(first>0 and previous_first == nums[first]):
+                first+=1
+                continue
+            else:
+                previous_first = nums[first] 
+            second = first+1
+            while(second<len(nums)-1):
+                if(second > first+1 and previous_second == nums[second]):
+                    second += 1
+                    continue
+                else:
+                    previous_second = nums[second]
+                third = third_boundry
+                while(third > second and nums[first]+nums[second]+nums[third] >= 0):
+                    if(third < third_boundry and previous_third== nums[third]):
+                        third_boundry = third
+                        third-=1
+                        continue
+                    else:
+                        previous_third = nums[third]
+                    if(nums[first]+nums[second]+nums[third]==0):
+                        res.append([nums[first],nums[second],nums[third]])
+                        break
+                    third_boundry = third
+                    third-=1
+                second+=1
+            first+=1
+        return res
+
+        
+
+#if(__name__=="__main__"):
+#    one = Solution()
+#    a = [3,0,3,2,-4,0,-3,2,2,0,-1,-5]
+#    print one.threeSum(a)
+
